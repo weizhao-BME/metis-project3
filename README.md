@@ -36,7 +36,11 @@ The Figure below shows a summary of the raw data during data query.
 
 #### **Model-based feature selection**
 
-It is desirable to reduce the number of features to both reduce the computational cost of modeling and, in some cases, to improve the performance of the model. To this end, the entire the dataset was split into a training and a testing datasets. Using the training dataset, a random forest model was trained and cross-validated (5-fold) to maximize ROC-AUC. Permutation importance was calculated to rank the features, because the impurity-based feature importance reported from the random forest model itself could be misleading for high cardinality features (many unique values) )(Ref: [sklearn doc](https://scikit-learn.org/stable/auto_examples/inspection/plot_permutation_importance.html#sphx-glr-auto-examples-inspection-plot-permutation-importance-py)).  If the permutation importance of a feature is larger than  the 75th percentile of all the feature importance values, this feature was selected as an important feature.
+It is desirable to reduce the number of features to both reduce the computational cost of modeling and, in some cases, to improve the performance of the model. To this end, the entire the dataset was split into a training and a testing datasets. Using the training dataset, a random forest model was trained and cross-validated (5-fold) to maximize ROC-AUC. During the cross-validation, 
+
+
+
+Permutation importance was calculated to rank the features, because the impurity-based feature importance reported from the random forest model itself could be misleading for high cardinality features (many unique values) )(Ref: [sklearn doc](https://scikit-learn.org/stable/auto_examples/inspection/plot_permutation_importance.html#sphx-glr-auto-examples-inspection-plot-permutation-importance-py)).  If the permutation importance of a feature is larger than  the 75th percentile of all the feature importance values, this feature was selected as an important feature.
 
 #### **Classification modeling**
 
@@ -48,19 +52,13 @@ Because the features selected based on permutation importance do not inform how 
 
 ### **Results and Discussion**
 
-
-
-
-
-
-
-
-
-
+The top seven most import features were identified using the threshold of 75th percentile permutation importance value. The selected features were HOEPA status, occupancy type, debt-to-income ratio ,open-end line of credit, business or commercial purpose, derived load product type and lien status (Figure below). 
 
 <img src="https://github.com/weizhao-BME/metis-project3/blob/main/figures/feature_selection.png" alt="Figure 3" width="600"/>
 
 
+
+Using the selected features and all  
 
 <img src="https://github.com/weizhao-BME/metis-project3/blob/main/figures/confusion_matrices.png" alt="Figure 4" width="600"/>
 
