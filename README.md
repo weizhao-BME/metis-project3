@@ -24,17 +24,19 @@ This project addressed these questions using a machine learning approach. First,
 
 The figure below shows the workflow of classification modeling. 
 
-<img src="https://github.com/weizhao-BME/metis-project3/blob/main/figures/workflow.png" alt="Figure 2" width="600"/>
+<img src="https://github.com/weizhao-BME/metis-project3/blob/main/figures/workflow.png" alt="Figure 1" width="600"/>
 
 #### **Data cleaning**
 
 A total of 78620 refinancing applications in Massachusetts  were collected from Consumer Financial Protection Bureau. The data contains 99 features, such as the location of applications, loan type, ethnicity/race, genders, loan amount, HOEPA status, and debt-to-income ratio. Irrelevant features, such as location, ethnicity/race, sex and genders, were excluded from the dataset. The applications with "Nan" values in remaining features were excluded as well. The "action taken" column was used as prediction labels. It contains "loan originated", "application approved but not accepted", and "application denied". The first two conditions were combined and considered as "application approved". Finally, the clean data included 62310 applications (51628 approvals vs. 10682 denials) and 28 financial features. 
 
+The Figure below shows a summary of the raw data during data query. 
+
+<img src="https://github.com/weizhao-BME/metis-project3/blob/main/figures/data_summary.png" alt="Figure 2" width="600"/>
+
 #### **Model-based feature selection**
 
 It is desirable to reduce the number of features to both reduce the computational cost of modeling and, in some cases, to improve the performance of the model. To this end, the entire the dataset was split into a training and a testing datasets. Using the training dataset, a random forest model was trained and cross-validated (5-fold) to maximize ROC-AUC. Permutation importance was calculated to rank the features, because the impurity-based feature importance reported from the random forest model itself could be misleading for high cardinality features (many unique values) )(Ref: [sklearn doc](https://scikit-learn.org/stable/auto_examples/inspection/plot_permutation_importance.html#sphx-glr-auto-examples-inspection-plot-permutation-importance-py)).  If the permutation importance of a feature is larger than  the 75th percentile of all the feature importance values, this feature was selected as an important feature.
-
-
 
 #### **Classification modeling**
 
@@ -56,3 +58,8 @@ Because the features selected based on permutation importance do not inform how 
 
 
 
+<img src="https://github.com/weizhao-BME/metis-project3/blob/main/figures/feature_selection.png" alt="Figure 3" width="600"/>
+
+
+
+<img src="https://github.com/weizhao-BME/metis-project3/blob/main/figures/feature_selection.png" alt="Figure 4" width="600"/>
