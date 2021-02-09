@@ -62,4 +62,5 @@ Because the features selected based on permutation importance do not inform how 
 
 
 
-<img src="https://github.com/weizhao-BME/metis-project3/blob/main/figures/feature_selection.png" alt="Figure 4" width="600"/>
+<img src="https://github.com/weizhao-BME/metis-project3/blob/main/figures/confusion_matrices.png" alt="Figure 4" width="600"/>
+
