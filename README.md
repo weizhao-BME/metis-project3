@@ -36,9 +36,9 @@ The Figure below shows a summary of the raw data during data query.
 
 #### **Model-based feature selection**
 
-It is desirable to reduce the number of features to both reduce the computational cost of modeling and, in some cases, to improve the performance of the model. To this end, the entire the dataset was split into a training and a testing datasets. Using the training dataset, a random forest model was trained and cross-validated (5-fold) to maximize ROC-AUC. During the cross-validation, 
+It is desirable to reduce the number of features to both reduce the computational cost of modeling and, in some cases, to improve the performance of the model. To this end, the entire the dataset was split into a training and a testing datasets. Using the training dataset, a random forest model was trained and cross-validated (5-fold) to maximize ROC-AUC. During the cross-validation, a random grid search approach was adopted to tune the hyper parameters of the model. With similar performance to grid search, random grid search has less computational cost
 
-
+The "n_estimators" ranged from 100 to 500 with an increment of 100. The "max_features" included "auto", "sqrt", and "log2". The "max_depth" ranged from 10 to 50 with an increment of 10. The "min_samples_split" ranged from 2 to 20 with an increment of 5. The "min_samples_leaf" includes 1, 2, and 4. The "bootstrap" includes "True" and "False". 
 
 Permutation importance was calculated to rank the features, because the impurity-based feature importance reported from the random forest model itself could be misleading for high cardinality features (many unique values) )(Ref: [sklearn doc](https://scikit-learn.org/stable/auto_examples/inspection/plot_permutation_importance.html#sphx-glr-auto-examples-inspection-plot-permutation-importance-py)).  If the permutation importance of a feature is larger than  the 75th percentile of all the feature importance values, this feature was selected as an important feature.
 
