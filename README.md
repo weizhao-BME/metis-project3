@@ -79,7 +79,7 @@ Both the random forest and logistic regression models achieved an ROC-AUC of 0.9
 
 Finally, the tuned random forest and logistic regression models were used to establish a ensemble model using a soft averaging approach. It achieved an ROC-AUC of 0.99 and a relatively balanced performance between the random forest and logistic regression models.  The figure below shows the confusion matrix of the ensemble model.
 
-<img src="https://github.com/weizhao-BME/metis-project3/blob/main/figures/cf_mat_voting.svg" alt="Figure 6" width="450"/>
+<img src="https://github.com/weizhao-BME/metis-project3/blob/main/figures/cf_mat_voting.svg" alt="Figure 6" width="420"/>
 
 ------
 
