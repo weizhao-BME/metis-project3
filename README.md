@@ -83,7 +83,7 @@ Finally, the tuned random forest and logistic regression models were used to est
 
 ------
 
-#### **Conclusion**
+### **Conclusion**
 
 In this analysis, important features that lenders focus on to make decisions on approval were identified. And how lenders use these features as a potential guideline to make decisions on approval were explored. In the future, this work may be extended to employ nationwide data with more loan purposes. A more sophisticated deep neural network could be leveraged for a more complex classification. 
 
