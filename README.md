@@ -75,7 +75,7 @@ and are more likely to reject applications if:
 
 Both the random forest and logistic regression models achieved an ROC-AUC of 0.99. The former performed better in predicting denials, while the latter performed better in predicting approvals. 
 
-<img src="https://github.com/weizhao-BME/metis-project3/blob/main/figures/confusion_matrices.png" alt="Figure 5" width="600"/>
+<img src="https://github.com/weizhao-BME/metis-project3/blob/main/figures/confusion_matrices.png" alt="Figure 5" width="800"/>
 
 Finally, the tuned random forest and logistic regression models were used to establish a ensemble model using a soft averaging approach. It achieved an ROC-AUC of 0.99 and a relatively balanced performance between the random forest and logistic regression models.  The figure below shows the confusion matrix of the ensemble model.
 
