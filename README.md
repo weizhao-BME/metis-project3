@@ -79,5 +79,9 @@ Finally, the tuned random forest and logistic regression models were used to est
 
 <img src="https://github.com/weizhao-BME/metis-project3/blob/main/figures/cf_mat_voting.svg" alt="Figure 4" width="300"/>
 
+------
 
+#### **Conclusion**
+
+In this analysis, important features that lenders focus on to make decisions of approval were identified. And how lenders uses these features as a potential guide line to make decisions of approval. In the future, this work may be extended to nationwide data with more loan purpose. A more sophisticated deep neural network could be leveraged for a more complex classification. 
 
