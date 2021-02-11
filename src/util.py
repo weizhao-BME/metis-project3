@@ -46,8 +46,8 @@ def save_as_pickle(fn, data):
     with open(fn, 'wb') as to_write:
         pickle.dump(data, to_write)
     print('Saved data to "' + fn + '"')
-    
-#--------------------------------------------------------    
+
+#--------------------------------------------------------
 def read_from_pickle(fn):
     """
     Function to read data from a pickled file
@@ -69,11 +69,11 @@ def read_from_pickle(fn):
         data = pickle.load(read_file)
     print('Read data from "' + fn + '"')
     return data
-    
-#--------------------------------------------------------    
+
+#--------------------------------------------------------
 def gen_engine(name_of_db):
     """
-    Function to generate an engine of sql. 
+    Function to generate an engine of sql.
 
     Parameters
     ----------
@@ -110,7 +110,7 @@ def do(query, name_of_db='refinance'):
     -------
     Query results from sql database
 
-    """    
+    """
     engine = gen_engine(name_of_db)
 
     return pd.read_sql(query, engine)
@@ -143,7 +143,7 @@ def ohe_data(x_cat):
     """
     This function converts categorical variables
     to numerical variables
-    
+
     Parameters
     ----------
     x_cat : pandas data frame
@@ -168,7 +168,7 @@ def std_data(x_cont):
     """
     This function standardize a dataset
     only including continuous variables.
-    
+
     Parameters
     ----------
     x_cont : pandas data frame
@@ -181,7 +181,7 @@ def std_data(x_cont):
     """
     std = StandardScaler()
     std.fit(x_cont)
-    t_x_cont = std.transform(x_cont)  
+    t_x_cont = std.transform(x_cont)
     columns = x_cont.columns
     x_cont_tform = pd.DataFrame(t_x_cont,
                                columns=columns,
@@ -245,7 +245,7 @@ def gen_cont(df):
 #--------------------------------------------------------
 def gen_hypergrid_for_rf_cv():
     """
-    Function to generate a hypergrid as the input of 
+    Function to generate a hypergrid as the input of
     random forest for cross-validation classifier.
 
     Returns
@@ -263,7 +263,7 @@ def gen_hypergrid_for_rf_cv():
     # Number of features to consider at every split
     max_features = ['auto', 'sqrt', 'log2']
     # Maximum number of levels in tree
-    max_depth = [int(x) for x in np.linspace(10, 50, num = 8)]
+    max_depth = [int(x) for x in np.linspace(10, 50, num = 5)]
     max_depth.append(None)
     # Minimum number of samples required to split a node
     min_samples_split = [2, 5, 10, 15, 20]
@@ -286,7 +286,7 @@ def get_logreg_models():
     with varying penalty strength, p
     smaller p --> more penalty
     larger p --> less penalty
-    
+
 
     Returns
     -------
@@ -359,7 +359,7 @@ def make_cv_pipelinie(classifier,
         A grid of hyperparameters,
         e.g. the output of  gen_hypergrid_for_rf_cv.
     scoring : dtr, optional
-        Available scores are listed here. 
+        Available scores are listed here.
         https://scikit-learn.org/stable/modules/model_evaluation.html
         The default is 'roc_auc'.
 
@@ -380,16 +380,16 @@ def make_cv_pipelinie(classifier,
     preprocessing = ColumnTransformer(
         [('cat', categorical_encoder, categorical_columns),
          ('num', numerical_scalar, numerical_columns)])
-    
-    
+
+
     clf_pipe = Pipeline([
         ('preprocess', preprocessing),
-        ('classifier', classifier), 
+        ('classifier', classifier),
     ])
-    
-    # Random search of parameters, using stratified 5 fold cross validation, 
-    # search across all different combinations, and use all available cores 
-    
+
+    # Random search of parameters, using stratified 5 fold cross validation,
+    # search across all different combinations, and use all available cores
+
     clf_random = RandomizedSearchCV(estimator = clf_pipe,
                                     param_distributions = random_grid,
                                     n_iter = 100,
@@ -397,7 +397,7 @@ def make_cv_pipelinie(classifier,
                                                          random_state=15),
                                     verbose=2, random_state=15,
                                     scoring=scoring, 
-                                    n_jobs = -1); # Fit the random search model
+                                    n_jobs = -1) # Fit the random search model
 
     return clf_random
 #--------------------------------------------------------
@@ -478,11 +478,11 @@ def make_mdl_eval_pipeline(classifier,
     preprocessing = ColumnTransformer(
         [('cat', categorical_encoder, categorical_columns),
          ('num', numerical_scalar, numerical_columns)])
-    
-    
+
+
     clf_pipe = Pipeline([
         ('preprocess', preprocessing),
-        ('classifier', classifier), 
+        ('classifier', classifier),
     ])
 
     return clf_pipe
@@ -510,21 +510,21 @@ def disp_confusion_matrix(cf_matrix,
     
     group_counts = ['{0:0.0f}'.format(value) for value in
      cf_matrix.flatten()]
-    
+
     group_percentages = ['{0:.2%}'.format(value) for value in
-                         (cf_matrix / 
+                         (cf_matrix /
                           (np.sum(cf_matrix, axis=1)[:, None])).flatten()]
 
     labels = [f'{v1}\n{v2}\n{v3}' for v1, v2, v3 in
               zip(group_names, group_counts, group_percentages)]
     labels = np.asarray(labels).reshape(2,2)
-    
+
     ax = sns.heatmap(cf_matrix, annot=labels, annot_kws=annot_kws,
                      fmt='', cmap=cmap, vmin=vmin, vmax=vmax,
                      xticklabels=True, yticklabels=True)
-    
+
     return ax
- #--------------------------------------------------------   
+ #--------------------------------------------------------
 class multi_metrics:
     """
         Function to calculate performance metrics
@@ -542,7 +542,7 @@ class multi_metrics:
 
         """
     def __init__(self, y_true, y_pred, y_score=None):
-        
+
         self.confusion_matrix = confusion_matrix(y_true, y_pred)
         self.confusion_matrix_norm_by_true = \
             confusion_matrix(y_true, y_pred, normalize='true')
@@ -550,7 +550,7 @@ class multi_metrics:
         self.precision = precision_score(y_true, y_pred)
         self.recall = recall_score(y_true, y_pred)
         self.f1 = f1_score(y_true, y_pred)
-        
+
         if y_score is not None:
             self.roc_auc = roc_auc_score(y_true, y_score[:,1])
             self.roc_curve =roc_curve(y_true, y_score[:,1])
@@ -558,7 +558,7 @@ class multi_metrics:
 #--------------------------------------------------------
 def print_metrics(metrics):
     """
-    Function to print metrics, including roc_auc, 
+    Function to print metrics, including roc_auc,
     accuracy, precision, recall, f1
 
     Parameters
@@ -577,7 +577,7 @@ def print_metrics(metrics):
           '\nrecall = {:.2f}'.format(metrics.recall),
           '\nf1 = {:.2f}'.format(metrics.f1),
           )
-#--------------------------------------------------------       
+#--------------------------------------------------------
 def get_feat_importance_logreg(mdl_logreg, x, y):
     """
     Calculate feature importance for logistic regression.
@@ -599,9 +599,8 @@ def get_feat_importance_logreg(mdl_logreg, x, y):
 
     """
     visualizer = FeatureImportances(mdl_logreg,
-                                    title='Logistic regression');
+                                    title='Logistic regression')
     visualizer.fit(x, y)
-    visualizer.ax.remove()    
+    visualizer.ax.remove()
     feat_importance = visualizer.feature_importances_[::-1]
     return feat_importance, visualizer
-    

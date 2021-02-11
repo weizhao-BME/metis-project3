@@ -7,7 +7,6 @@ This file includes the process of data cleaning.
 """
 #%%
 import numpy as np
-import pandas as pd
 from util import *
 import warnings
 #%%
@@ -26,25 +25,25 @@ def reduce_feats():
     q = """
     SELECT * from ma_refinance
     """
-    df = do(q)    
-    
+    df = do(q)
+
     feats = ['derived_msa-md', 'county_code', 'conforming_loan_limit',
              'derived_loan_product_type', 'derived_race', 'derived_sex',
              'lien_status', 'open-end_line_of_credit',
-             'business_or_commercial_purpose', 'hoepa_status', 
+             'business_or_commercial_purpose', 'hoepa_status',
              'interest_only_payment', 'balloon_payment',
              'occupancy_type', 'total_units', 'applicant_race-1',
              'applicant_sex','applicant_age_above_62',
              'co-applicant_age_above_62',
              'loan_term', 'loan_amount', 'property_value',
-             'loan_to_value_ratio', 'income', 
-             'debt_to_income_ratio', 'applicant_age', 'co-applicant_age', 
+             'loan_to_value_ratio', 'income',
+             'debt_to_income_ratio', 'applicant_age', 'co-applicant_age',
              'action_taken', 'denial_reason-1',
              'denial_reason-2', 'denial_reason-3', 'denial_reason-4']
-    
+
     df_new = df[feats]
     # sql does not identidy dash '-', so replace '-' with underline '_'
-    columns = df_new.columns.str.replace('-', '_')   
+    columns = df_new.columns.str.replace('-', '_')
     df_new.columns = columns
     return df_new
 #---------------------------------------------------------------------------
@@ -86,26 +85,26 @@ def drop_rows(df):
     df = df.drop(idx, inplace=False)
     # exclude None propery value
     idx = df[df['property_value'] == 'Exempt'].index
-    df = df.drop(idx, inplace=False) 
-    
+    df = df.drop(idx, inplace=False)
+
     df.dropna(subset=['loan_term', 'loan_amount', 'property_value',
                       'loan_to_value_ratio', 'income',
                       'debt_to_income_ratio', 'applicant_age',
                       'co_applicant_age', 'conforming_loan_limit',
                       'applicant_race_1'
                       ], axis=0, inplace=True)
-    
+
     # df.dropna(subset=['loan_term'], axis=0, inplace=True)
     # df.dropna(subset=['loan_amount'], axis=0, inplace=True)
     # df.dropna(subset=['property_value'], axis=0, inplace=True)
-    # df.dropna(subset=['loan_to_value_ratio'], axis=0, inplace=True)    
+    # df.dropna(subset=['loan_to_value_ratio'], axis=0, inplace=True)
     # df.dropna(subset=['conforming_loan_limit'], axis=0, inplace=True)
     # df.dropna(subset=['applicant_race_1'], axis=0, inplace=True)
     # df.dropna(subset=['income'], axis=0, inplace=True)
     # df.dropna(subset=['debt_to_income_ratio'], axis=0, inplace=True)
     # df.dropna(subset=['applicant_age'], axis=0, inplace=True)
     # df.dropna(subset=['co_applicant_age'], axis=0, inplace=True)
-    
+
     return df
 #---------------------------------------------------------------------------
 def col_txt_split(t):
@@ -113,7 +112,7 @@ def col_txt_split(t):
     Function to split colum txt
     """
     tt = t.split(':')[-1].split(' ')[0]
-    
+
     return tt
 #---------------------------------------------------------------------------
 def clean_col_txt(df):
@@ -158,7 +157,7 @@ def clean_col_num(df):
 #---------------------------------------------------------------------------
 def col_num2text(df):
     """
-    Funcito to convert categorical values represented by numbers 
+    Funcito to convert categorical values represented by numbers
     to text to facilitate ohe
 
     Parameters
@@ -172,12 +171,12 @@ def col_num2text(df):
         df after conversion.
 
     """
-    df[['derived_msa_md', 'county_code', 
+    df[['derived_msa_md', 'county_code',
         'hoepa_status', 'interest_only_payment', 'balloon_payment',
         'occupancy_type', 'applicant_sex',
         'lien_status', 'open_end_line_of_credit',
         'business_or_commercial_purpose'
-        ]] = df[['derived_msa_md', 'county_code', 
+        ]] = df[['derived_msa_md', 'county_code',
         'hoepa_status', 'interest_only_payment', 'balloon_payment',
         'occupancy_type', 'applicant_sex',
         'lien_status', 'open_end_line_of_credit',
@@ -240,7 +239,7 @@ def col_numericalize(df):
 #---------------------------------------------------------------------------
 def total_age(df):
     """
-    Function to add a feature that considers 
+    Function to add a feature that considers
     the total age of applicants and their co-applicants
 
     Returns
@@ -249,18 +248,18 @@ def total_age(df):
         Total age.
 
     """
-    
+
     mask_co = df['co_applicant_age'] != 0
     mask = df['co_applicant_age'] == 0
-    
-    t_age_co = (df['applicant_age'][mask_co] 
+
+    t_age_co = (df['applicant_age'][mask_co]
                 + df['co_applicant_age'][mask_co])
-    
+
     t_age = df['applicant_age'][mask]
-    
+
     total_age = df['applicant_age'].copy()
     total_age = np.zeros_like(df['applicant_age'])
-    
+
     total_age[mask_co] = t_age_co
     total_age[mask] = t_age
     df.insert(loc=df.shape[1]-7, column='total_age', value=total_age)
@@ -313,15 +312,20 @@ def data_cleaning(df):
     df = group_race(df)
     df = col_num2text(df)
     return df
-   
-    
+
 #%%
 def main():
+    """
+    main function returs a clean data frame
+
+    Returns
+    -------
+    df_new : pandas data frame
+        clean data.
+
+    """
     df_new = data_cleaning(df)
     return df_new
 
-if __name__ == "__main__":   
+if __name__ == "__main__":
     df = main()
-
-
-
