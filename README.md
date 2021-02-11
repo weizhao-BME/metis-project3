@@ -2,7 +2,7 @@
 
 ---
 
-## Predicting Approval Status of Mortgage Refinancing
+## Predicting Lenders' Decision on Home Loan Refinancing Application
 
 **A Classification Analysis**
 
@@ -14,7 +14,7 @@ Final presentation is posted [here](https://github.com/weizhao-BME/metis-project
 
 ### **Introduction** 
 
-Many believe that mortgage rate will stop dropping. The National Association of Realtors expected rates still keep at a low level as 2020. To date, mortgage rate is near record lows, which signifies an economy that continues to struggle. This rate environment is advantageous for those who are seeking a refinancing to offload the financial burdens. Therefore, it is a good idea to apply for refinancing as soon as possible in order to secure a low rate. It is beneficial to understand what financial features lenders focus on to make decisions on approval and how these features play a role in approving or denying applications. 
+The National Association of Realtors expected rates still keep at a low level as 2020. To date, mortgage rate is near record lows, which signifies an economy that continues to struggle. This rate environment is advantageous for those who are seeking a refinancing to offload the financial burdens. Therefore, it is a good idea to apply for refinancing as soon as possible in order to secure a low rate. It is beneficial to understand what financial features lenders focus on to make decisions on approval and how these features play a role in approving or denying applications. 
 
 This project addressed these questions using a machine learning approach. First, the data was collected from Home Mortgage Disclosure Act (HMDA) query website. Second, a feature selection was performed using a 5-fold cross-validated random forest model after initial data cleaning in order to identify important financial features. Following this step, a random forest model was trained using all the training data along with selected features. Because random forest model has limited ability to interpret feature importance, a logistic regression model was trained and tuned using selected features based on a 5-fold cross-validation. Finally, the random forest and logistic regression models were used to establish a voting-based ensemble model for a balanced performance. 
 
@@ -24,7 +24,7 @@ This project addressed these questions using a machine learning approach. First,
 
 The figure below shows the workflow of classification modeling. 
 
-<img src="https://github.com/weizhao-BME/metis-project3/blob/main/figures/workflow.png" alt="Figure 1" width="600"/>
+<img src="https://github.com/weizhao-BME/metis-project3/blob/main/figures/workflow.png" alt="Figure 1" width="500"/>
 
 #### **Data cleaning**
 
@@ -32,7 +32,7 @@ A total of 78620 refinancing applications in Massachusetts  were collected from 
 
 The Figure below shows a summary of the raw data during data query. 
 
-<img src="https://github.com/weizhao-BME/metis-project3/blob/main/figures/data_summary.png" alt="Figure 2" width="600"/>
+<img src="https://github.com/weizhao-BME/metis-project3/blob/main/figures/data_summary.png" alt="Figure 2" width="500"/>
 
 #### **Model-based feature selection**
 
@@ -46,7 +46,7 @@ Permutation importance was calculated to rank the features, because the impurity
 
 For all the training data, the selected important features were employed to train a random forest model. Its performance based on an independent testing dataset, in terms of ROC-AUC and confusion matrix were reported. 
 
-Because the features selected based on permutation importance do not inform how lenders make decisions on approval using these features, a logistic regression model was trained and cross-validated (5-fold) utilizing the existing training and validation datasets. The regularization parameter, penalty strength("C" (list of [0.0, 0.0001, 0.001, 0.01, 0.1, 1.0])),  was tuned to maximize the model performance. Finally, using the best "C", the same selected features and all the training data, a logistic regression model was trained and further tested using the independent testing dataset. This offers a way of investigating the coefficient-based relative feature importance. Similar to the random forest model, the ROC-AUC and confusion matrix were reported. 
+Because the features selected based on permutation importance do not inform how lenders make decision on approval using these features, a logistic regression model was trained and cross-validated (5-fold) utilizing the existing training and validation datasets. The regularization parameter, penalty strength("C" (list of [0.0, 0.0001, 0.001, 0.01, 0.1, 1.0])),  was tuned to maximize the ROC-AUC. Finally, using the best "C", the same selected features and all the training data, a logistic regression model was trained and further tested using the independent testing dataset. This offers a way of investigating the coefficient-based relative feature importance. Similar to the random forest model, the ROC-AUC and confusion matrix were reported. 
 
 ----------
 
@@ -65,7 +65,7 @@ Coefficient-based relative feature importance reported from logistic regression 
 
 and are more likely to reject applications if:
 
-- The load is not subject to HOEPA regulations 
+- The loan is not subject to HOEPA regulations 
 - The property is used as principal residence
 - The applicants have high debt-to-income ratios
 - The property is not primarily used for a business or commercial purpose
@@ -73,13 +73,9 @@ and are more likely to reject applications if:
 
 <img src="https://github.com/weizhao-BME/metis-project3/blob/main/figures/rel_feat_importance_logreg.svg" alt="Figure 4" width="600"/>
 
-Both the random forest and logistic regression models achieved an ROC-AUC of 0.99. The former performed better in predicting denials, while the latter performed better in predicting approvals. 
+Both the random forest and logistic regression models achieved an ROC-AUC of 0.99. The former performed better in predicting denials and yielded comparable performance with the latter in predicting approvals. 
 
 <img src="https://github.com/weizhao-BME/metis-project3/blob/main/figures/confusion_matrices.png" alt="Figure 5" width="800"/>
-
-Finally, the tuned random forest and logistic regression models were used to establish a ensemble model using a soft averaging approach. It achieved an ROC-AUC of 0.99 and a relatively balanced performance between the random forest and logistic regression models.  The figure below shows the confusion matrix of the ensemble model.
-
-<img src="https://github.com/weizhao-BME/metis-project3/blob/main/figures/cf_mat_voting.png" alt="Figure 6" width="420"/>
 
 ------
 
