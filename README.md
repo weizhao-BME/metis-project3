@@ -75,7 +75,7 @@ and are more likely to reject applications if:
 
 Both the random forest and logistic regression models achieved an ROC-AUC of 0.99. The former performed better in predicting denials and yielded comparable performance with the latter in predicting approvals. 
 
-<img src="https://github.com/weizhao-BME/metis-project3/blob/main/figures/confusion_matrices.png" alt="Figure 5" width="800"/>
+<img src="https://github.com/weizhao-BME/metis-project3/blob/main/figures/confusion_matrices.png" alt="Figure 5" width="600"/>
 
 ------
 
