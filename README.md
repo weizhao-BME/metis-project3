@@ -79,7 +79,7 @@ Both the random forest and logistic regression models achieved an ROC-AUC of 0.9
 
 Here, high ROC-AUC is expected because the dataset itself is highly discriminative. Especially, the HOEPA status is highly separable as shown below. 
 
-<img src="https://github.com/weizhao-BME/metis-project3/blob/main/figures/hoepa_status_count.png" alt="Figure 6" width="300"/>
+<img src="https://github.com/weizhao-BME/metis-project3/blob/main/figures/hoepa_status_count.svg" alt="Figure 6" width="300"/>
 
 ------
 
