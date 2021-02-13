@@ -314,7 +314,7 @@ def data_cleaning(df):
     return df
 
 #%%
-def main():
+def main(df):
     """
     main function returs a clean data frame
 
@@ -328,4 +328,4 @@ def main():
     return df_new
 
 if __name__ == "__main__":
-    df = main()
+    df = main(df)
