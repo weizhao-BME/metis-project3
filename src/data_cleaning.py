@@ -94,17 +94,6 @@ def drop_rows(df):
                       'applicant_race_1'
                       ], axis=0, inplace=True)
 
-    # df.dropna(subset=['loan_term'], axis=0, inplace=True)
-    # df.dropna(subset=['loan_amount'], axis=0, inplace=True)
-    # df.dropna(subset=['property_value'], axis=0, inplace=True)
-    # df.dropna(subset=['loan_to_value_ratio'], axis=0, inplace=True)
-    # df.dropna(subset=['conforming_loan_limit'], axis=0, inplace=True)
-    # df.dropna(subset=['applicant_race_1'], axis=0, inplace=True)
-    # df.dropna(subset=['income'], axis=0, inplace=True)
-    # df.dropna(subset=['debt_to_income_ratio'], axis=0, inplace=True)
-    # df.dropna(subset=['applicant_age'], axis=0, inplace=True)
-    # df.dropna(subset=['co_applicant_age'], axis=0, inplace=True)
-
     return df
 #---------------------------------------------------------------------------
 def col_txt_split(t):
