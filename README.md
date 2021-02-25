@@ -6,7 +6,7 @@
 
 **A Classification Analysis**
 
-Project timeline: Three weeks
+Project timeline: 2.5 weeks
 
 Final presentation is posted [here](https://github.com/weizhao-BME/metis-project3/blob/main/presentation/presentation_project3.pdf).
 
