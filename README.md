@@ -36,7 +36,7 @@ The Figure below shows a summary of the raw data during data query.
 
 #### **Model-based feature selection**
 
-It is desirable to reduce the number of features to both reduce the computational cost of modeling and, in some cases, to improve the performance of the model. To this end, the entire dataset was split into training and testing datasets. Using the training dataset (further split into training and validation datasets), a random forest model was trained and cross-validated (5-fold) to maximize ROC-AUC based on validation validation dataset. During the cross-validation, a random grid search approach was adopted to tune the hyper parameters of the model. With similar performance to that of grid search, random grid search has less computational cost. The hyperparameters and their ranges were adopted as below:
+It is desirable to reduce the number of features to both reduce the computational cost of modeling and, in some cases, to improve the performance of the model. To this end, the entire dataset was split into training and testing datasets. Using the training dataset (further split into training and validation datasets), a random forest model was trained and cross-validated (5-fold) to maximize ROC-AUC based on validation dataset. During the cross-validation, a random grid search approach was adopted to tune the hyper parameters of the model. With similar performance to that of grid search, random grid search has less computational cost. The hyperparameters and their ranges were adopted as below:
 
 The "n_estimators" ranged from 100 to 500 with an increment of 100. The "max_features" included "auto", "sqrt", and "log2". The "max_depth" ranged from 10 to 50 with an increment of 10. The "min_samples_split" ranged from 2 to 20 with an increment of 5. The "min_samples_leaf" includes 1, 2, and 4. The "bootstrap" includes "True" and "False". 
 
@@ -46,13 +46,13 @@ Permutation importance was calculated to rank the features, because the impurity
 
 For all the training data, the selected important features were employed to train a random forest model. Its performance based on an independent testing dataset, in terms of ROC-AUC and confusion matrix were reported. 
 
-Because the features selected based on permutation importance do not inform how lenders make decisions using these features, a logistic regression model was trained and cross-validated (5-fold) utilizing the existing training and validation datasets. The regularization parameter, penalty strength("C" (list of [0.0, 0.0001, 0.001, 0.01, 0.1, 1.0])),  was tuned to maximize the ROC-AUC. Finally, using the best "C", the same selected features and all the training data, a logistic regression model was trained and further tested using the independent testing dataset. This offers a way of investigating the coefficient-based relative feature importance. Similar to the random forest model, the ROC-AUC and confusion matrix were reported. 
+Because the features selected based on permutation importance do not inform how lenders make decisions using these features, a logistic regression model was trained and cross-validated (5-fold) utilizing the existing training and validation datasets. The regularization parameter, penalty strength ("C" (list of [0.0, 0.0001, 0.001, 0.01, 0.1, 1.0])),  was tuned to maximize the ROC-AUC. Finally, using the best "C", the same selected features and all the training data, a logistic regression model was trained and further tested using the independent testing dataset. This offers a way of investigating the coefficient-based relative feature importance. Similar to the random forest model, the ROC-AUC and confusion matrix were reported. 
 
 ----------
 
 ### **Results and Discussion**
 
-The top seven most important features were identified using the threshold of 75th percentile permutation importance value. The selected features were HOEPA status, occupancy type, debt-to-income ratio ,open-end line of credit, business or commercial purpose, derived load product type and lien status (Figure below). It suggests that lenders typically focus on these financial features to make decisions. 
+The top seven most important features were identified using the threshold of 75th percentile permutation importance value. The selected features were HOEPA status, occupancy type, debt-to-income ratio, open-end line of credit, business or commercial purpose, derived load product type and lien status (Figure below). It suggests that lenders typically focus on these financial features to make decisions. 
 
 <img src="https://github.com/weizhao-BME/metis-project3/blob/main/figures/feature_selection.png" alt="Figure 3" width="600"/>
 
