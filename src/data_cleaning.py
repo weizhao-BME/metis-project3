@@ -14,7 +14,7 @@ warnings.filterwarnings('ignore')
 #%%
 def reduce_feats():
     """
-    Function to recude th number of features by selecting certain features
+    Function to recude the number of features by selecting certain features
 
     Returns
     -------
