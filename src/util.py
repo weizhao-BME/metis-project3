@@ -373,14 +373,10 @@ def make_cv_pipelinie(classifier,
     """
     categorical_encoder = OneHotEncoder(handle_unknown='ignore')
     numerical_scalar = StandardScaler()
-    # numerical_pipe = Pipeline([
-    #     ('imputer', SimpleImputer(strategy='mean'))
-    # ])
 
     preprocessing = ColumnTransformer(
         [('cat', categorical_encoder, categorical_columns),
          ('num', numerical_scalar, numerical_columns)])
-
 
     clf_pipe = Pipeline([
         ('preprocess', preprocessing),
@@ -471,9 +467,6 @@ def make_mdl_eval_pipeline(classifier,
     """
     categorical_encoder = OneHotEncoder(handle_unknown='ignore')
     numerical_scalar = StandardScaler()
-    # numerical_pipe = Pipeline([
-    #     ('imputer', SimpleImputer(strategy='mean'))
-    # ])
 
     preprocessing = ColumnTransformer(
         [('cat', categorical_encoder, categorical_columns),
