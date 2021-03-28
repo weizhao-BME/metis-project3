@@ -214,12 +214,6 @@ def col_numericalize(df):
     df['co_applicant_age'][df['co_applicant_age'] == '25-34'] = 30
     df['co_applicant_age'][df['co_applicant_age'] == '<25'] = 20
     #
-    # df['derived_loan_product_type'][df['derived_loan_product_type'] == 'First'] = 1
-    # df['derived_loan_product_type'][df['derived_loan_product_type'] == 'Subordinate'] = 0
-    #
-    # df['conforming_loan_limit'][df['conforming_loan_limit'] == 'C'] = 1
-    # df['conforming_loan_limit'][df['conforming_loan_limit'] == 'NC'] = 0
-    #
     df['loan_to_value_ratio'] = df['loan_to_value_ratio'].astype(np.float64)
     df['property_value'] = df['property_value'].astype(np.int64)
     df['loan_term'] = df['loan_term'].astype(np.int64)
