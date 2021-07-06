@@ -24,7 +24,7 @@ This project addressed these questions using a machine learning approach. First,
 
 The figure below shows the workflow of classification modeling. 
 
-<img src="https://github.com/weizhao-BME/metis-project3/blob/main/figures/workflow.png" alt="Figure 1" width="500"/>
+<img src="https://github.com/weizhao-BME/metis-project3/blob/main/figures/workflow2.png" alt="Figure 1" width="500"/>
 
 #### **Data cleaning**
 
